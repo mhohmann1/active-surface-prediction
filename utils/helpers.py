@@ -6,7 +6,7 @@ def save_best_model(avg_test_loss, best_loss, epoch, path, model, optimizer):
     if avg_test_loss < best_loss:
         best_loss = avg_test_loss
         print(20 * "#")
-        print("Best model at epoch: %i, with loss: %.4f" % (epoch, best_loss))
+        print("Best model at epoch: %i, with loss: %.6f" % (epoch, best_loss))
         print(20 * "#")
         torch.save({"epoch": epoch,
                     "model_state_dict": model.state_dict(),
@@ -21,7 +21,7 @@ def load_model(path, model, optimizer, eval=True):
     optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
     epoch = checkpoint["epoch"]
     loss = checkpoint["loss"]
-    print("loaded at epoch: ", epoch, " and mse loss: ", loss)
+    print("loaded at epoch: %i, with loss: %.6f" % (epoch, loss))
 
     if eval:
         model.eval()

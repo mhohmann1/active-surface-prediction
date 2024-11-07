@@ -75,7 +75,7 @@ if args.model == "pix2pix":
         plt.legend()
         plt.savefig(f"saved_models/{exp_id}/Pix2Pix_loss.png")
 
-elif args.parse == "encoderdecoder":
+elif args.model == "encoderdecoder":
     encdec = StressHeightAE(z_dim=64, z_w=8, z_h=16, conv_dim=64, dropout=0).to(device)
 
     encdec_optimizer = torch.optim.Adam(encdec.parameters(), lr=5e-5)

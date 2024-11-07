@@ -77,7 +77,7 @@ elif args.model == "encoderdecoder":
     comp_path = "output/prediction_encoder_decoder.png"
 elif args.model == "unet":
     comp_path = "output/prediction_u_net.png"
-save_comparison_plot(path, true, pred)
+save_comparison_plot(comp_path, true, pred)
 
 pressure_die = src_data[0]  * min_max[1]
 pressure_punch = src_data[2]  * min_max[-1]

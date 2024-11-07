@@ -40,6 +40,40 @@ def save_plot(path, train_history, test_history):
     plt.legend()
     plt.savefig(path)
 
+
+def save_pressure_surface_plot(path, pressure_die, pressure_punch, surface_die):
+    vmin = min(pressure_die.min(), pressure_punch.min())
+    vmax = max(pressure_die.max(), pressure_punch.max())
+
+    plt.figure(figsize=(20, 5))
+
+    plt.subplot(1, 3, 1)
+    plt.imshow(pressure_die, cmap="jet", vmin=vmin, vmax=vmax)
+    plt.colorbar(label="Pressure (MPa)")
+    plt.xlabel("x (mm)")
+    plt.ylabel("y (mm)")
+    plt.title("Pressure Distribution of Matrix")
+    plt.axis("off")
+
+    plt.subplot(1, 3, 2)
+    plt.imshow(surface_die, cmap="jet")
+    plt.colorbar(label="z (mm)")
+    plt.xlabel("x (mm)")
+    plt.ylabel("y (mm)")
+    plt.title("Surface of Matrix")
+    plt.axis("off")
+
+    plt.subplot(1, 3, 3)
+    plt.imshow(pressure_punch, cmap="jet", vmin=vmin, vmax=vmax)
+    plt.colorbar(label="Pressure (MPa)")
+    plt.xlabel("x (mm)")
+    plt.ylabel("y (mm)")
+    plt.title("Pressure Distribution of Punch")
+    plt.axis("off")
+
+    plt.tight_layout()
+    plt.savefig(path)
+
 def save_comparison_plot(path, true, pred):
     plt.figure(figsize=(20, 5))
 

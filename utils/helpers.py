@@ -3,8 +3,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def save_best_model(avg_test_loss, best_loss, epoch, path, model, optimizer):
-    print(type(avg_test_loss), type(best_loss))
-    print(avg_test_loss, best_loss)
     if avg_test_loss < best_loss:
         best_loss = avg_test_loss
 
@@ -15,9 +13,9 @@ def save_best_model(avg_test_loss, best_loss, epoch, path, model, optimizer):
         torch.save({"epoch": epoch,
                     "model_state_dict": model.state_dict(),
                     "optimizer_state_dict": optimizer.state_dict(),
-                    "loss": best_loss, }, path)
+                    "loss": best_loss}, path)
 
-        return best_loss
+    return best_loss
 
 def load_model(path, model, optimizer, eval=True):
     checkpoint = torch.load(path, weights_only=True)

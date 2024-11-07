@@ -4,7 +4,6 @@ from torch.utils.data import random_split, DataLoader
 from tqdm import tqdm
 from torch.nn import MSELoss, L1Loss
 from torchvision.transforms import v2
-from train import unet_optimizer
 from utils.dataloader import Data
 from args import args
 from sum_stats import mean_std, min_max
@@ -52,10 +51,9 @@ elif args.model == "encoderdecoder":
 
 elif args.model == "unet":
     unet = StressHeightUNet().to(device)
-    unet_optimizer = torch.optim.Adam(unet_optimizer.parameters(), lr=5e-5)
+    unet_optimizer = torch.optim.Adam(unet.parameters(), lr=5e-5)
     path = f"saved_models/{exp_id}/u_net.tar"
     model = load_model(path, unet, unet_optimizer)
-
 
 rnd_idx = np.random.randint(0, len(test_data))
 print(rnd_idx)

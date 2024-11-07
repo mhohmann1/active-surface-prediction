@@ -4,8 +4,6 @@
 
 import torch
 import torch.nn.functional as F
-from torch.nn.functional import batch_norm
-
 
 class ConvBlock(torch.nn.Module):
     def __init__(self, input_size, output_size, kernel_size=4, stride=2, padding=1, activation=True, batch_norm=True):

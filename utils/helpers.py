@@ -39,3 +39,34 @@ def save_plot(path, train_history, test_history):
     plt.ylabel("Loss")
     plt.legend()
     plt.savefig(path)
+
+def save_comparison_plot(path, true, pred):
+    plt.figure(figsize=(20, 5))
+
+    plt.subplot(1, 3, 1)
+    plt.imshow(true, cmap="jet")
+    plt.colorbar(label="z (mm)")
+    plt.xlabel("x (mm)")
+    plt.ylabel("y (mm)")
+    plt.title("Target: Surface of Matrix")
+    plt.axis("off")
+
+    plt.subplot(1, 3, 2)
+    plt.imshow(pred, cmap="jet")
+    plt.colorbar(label="z (mm)")
+    plt.xlabel("x (mm)")
+    plt.ylabel("y (mm)")
+    plt.title("Prediction: Surface of Matrix")
+    plt.axis("off")
+
+    diff = np.abs(pred - np.array(true))
+    plt.subplot(1, 3, 3)
+    plt.imshow(diff, cmap="jet")
+    plt.colorbar(label="z (mm)")
+    plt.xlabel("x (mm)")
+    plt.ylabel("y (mm)")
+    plt.title("Difference")
+    plt.axis("off")
+
+    plt.tight_layout()
+    plt.savefig(path)

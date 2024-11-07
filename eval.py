@@ -19,9 +19,9 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Device: {device}")
 
 if args.model == "pix2pix":
-    dataset = Data(args.path, augment=True, scale=False, min_max=min_max, tanh=True, preload=True, img_size=(args.img_size_w, args.img_size_h))
+    dataset = Data(args.path, augment=True, scale=False, min_max=min_max, tanh=True, preload=False, img_size=(args.img_size_w, args.img_size_h))
 elif args.model == "encoderdecoder" or args.model == "unet":
-    dataset = Data(args.path, augment=True, scale=False, min_max=min_max, preload=True, img_size=(args.img_size_w, args.img_size_h))
+    dataset = Data(args.path, augment=True, scale=False, min_max=min_max, preload=False, img_size=(args.img_size_w, args.img_size_h))
 else:
     print("Please parse 'encoderdecoder', 'unet' or 'pix2pix'.")
     exit()

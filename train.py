@@ -20,9 +20,9 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Device: {device}")
 
 if args.model == "pix2pix":
-    dataset = Data(args.path, augment=True, scale=False, min_max=min_max, tanh=True, preload=True, img_size=(args.img_size_w, args.img_size_h))
+    dataset = Data(args.path, augment=True, scale=True, min_max=min_max, tanh=True, preload=True, img_size=(args.img_size_w, args.img_size_h))
 else:
-    dataset = Data(args.path, augment=True, scale=False, min_max=min_max, preload=True, img_size=(args.img_size_w, args.img_size_h))
+    dataset = Data(args.path, augment=True, scale=True, min_max=min_max, preload=True, img_size=(args.img_size_w, args.img_size_h))
 
 train_size = int(0.8 * len(dataset))
 test_size = len(dataset) - train_size

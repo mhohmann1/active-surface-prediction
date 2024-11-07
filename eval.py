@@ -19,9 +19,9 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Device: {device}")
 
 if args.model == "pix2pix":
-    dataset = Data(args.path, augment=True, scale=False, min_max=min_max, tanh=True, preload=False, img_size=(args.img_size_w, args.img_size_h))
+    dataset = Data(args.path, augment=False, scale=True, min_max=min_max, tanh=True, preload=False, img_size=(args.img_size_w, args.img_size_h))
 elif args.model == "encoderdecoder" or args.model == "unet":
-    dataset = Data(args.path, augment=True, scale=False, min_max=min_max, preload=False, img_size=(args.img_size_w, args.img_size_h))
+    dataset = Data(args.path, augment=False, scale=True, min_max=min_max, preload=False, img_size=(args.img_size_w, args.img_size_h))
 else:
     print("Please parse 'encoderdecoder', 'unet' or 'pix2pix'.")
     exit()
@@ -55,7 +55,7 @@ elif args.model == "unet":
     path = f"saved_models/{exp_id}/u_net.tar"
     model = load_model(path, unet, unet_optimizer)
 
-rnd_idx = np.random.randint(0, len(test_data))
+rnd_idx = 130 # np.random.randint(0, len(test_data))
 print(rnd_idx)
 src_data = test_data[rnd_idx]
 
@@ -68,8 +68,8 @@ with torch.no_grad():
         pred, z = model(x_input)
     pred = pred.squeeze().detach().cpu().numpy()
 
-pred = ((pred + 1) / 2) * (3 - 1) + 1
-true = ((src_data[1] + 1) / 2) * (3 - 1) + 1
+pred = pred * (min_max[3]- min_max[2]) + min_max[2]
+true = src_data[1] * (min_max[3]- min_max[2]) + min_max[2]
 
 if args.model == "pix2pix":
     comp_path = "output/prediction_pix2pix.png"
@@ -79,9 +79,9 @@ elif args.model == "unet":
     comp_path = "output/prediction_u_net.png"
 save_comparison_plot(comp_path, true, pred)
 
-pressure_die = src_data[0]  * min_max[1]
-pressure_punch = src_data[2]  * min_max[-1]
-surface_die = src_data[1] * 2 + 1
+pressure_die = src_data[0]  * (min_max[1] + min_max[0]) + min_max[0]
+pressure_punch = src_data[2]  * (min_max[-1] + min_max[-2]) + min_max[-2]
+surface_die = src_data[1] * (min_max[3]- min_max[2]) + min_max[2]
 
 ps_path = "output/pressure_surface.png"
 

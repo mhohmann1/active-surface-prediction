@@ -20,9 +20,9 @@ conda env update -n active-surface-prediction --file environment.yml
 ```
 python train.py
 ```
+To recalculate the summary statistics for the training data after changing the initial seed, please run: `python calc_stats.py`.
 
 # Evaluation
-
 
 ```
 python eval.py

@@ -6,6 +6,7 @@ import random
 from utils.dataloader_utils import interpolate_table, random_flip
 from tqdm import tqdm
 from sys import exit
+from glob import glob
 
 class Data(Dataset):
     def __init__(self, obj_dir, augment=False, scale=False, mean_std=None, min_max=None, tanh=False, preload=False, img_size=(81, 41)):
@@ -28,8 +29,8 @@ class Data(Dataset):
                 self.min_stress, self.max_stress, self.min_height, self.max_height, self.min_punch, self.max_punch = self.min_max
 
             else:
-                print()
-                exit(0)
+                print("Not available! Only min_max, mean_std are available.")
+                exit()
 
         self.paths = self._collect_paths(obj_dir)
 
@@ -45,20 +46,13 @@ class Data(Dataset):
         geometrie_arten = sorted(os.listdir(obj_dir), key=extract_number)
 
         for geometrie in geometrie_arten:
-            geometrie_path = os.path.join(obj_dir, geometrie)
-            matrizen_arten = os.listdir(geometrie_path)
-            for matrizen_art in matrizen_arten:
-                matrizen_path = os.path.join(geometrie_path, matrizen_art)
-                werkzeug_arten = os.listdir(matrizen_path)
-                for werkzeug_art in werkzeug_arten:
-                    excel_path = os.path.join(matrizen_path, werkzeug_art)
-                    excel_arten = os.listdir(excel_path)
-                    for excel_art in excel_arten:
-                        if "stempel" in excel_art.lower():
-                            continue
-                        tool_path = os.path.join(excel_path, excel_art)
-                        paths.append(tool_path)
-                        self.conditions.append(float(excel_art.replace("Matrize_", "").replace(".xlsx", "")))
+            pattern = os.path.join(obj_dir, geometrie, '*', '*', '*.xlsx')
+            for tool_path in glob(pattern):
+                excel_art = os.path.basename(tool_path)
+                if "stempel" in excel_art.lower():
+                    continue
+                paths.append(tool_path)
+                self.conditions.append(float(excel_art.replace("Matrize_", "").replace(".xlsx", "")))
 
         return paths
 

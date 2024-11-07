@@ -1,6 +1,4 @@
-import torch
 import torch.nn as nn
-import torch.nn.functional as F
 
 class ImgEncoder(nn.Module):
     def __init__(self, z_dim, z_w, z_h, conv_dim, dropout):

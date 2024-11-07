@@ -3,11 +3,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def save_best_model(avg_test_loss, best_loss, epoch, path, model, optimizer):
+    print(type(avg_test_loss), type(best_loss))
+    print(avg_test_loss, best_loss)
     if avg_test_loss < best_loss:
         best_loss = avg_test_loss
 
         print(20 * "#")
-        print("Best models at epoch: %i, with loss: %.4f" % (epoch, best_loss))
+        print("Best model at epoch: %i, with loss: %.4f" % (epoch, best_loss))
         print(20 * "#")
 
         torch.save({"epoch": epoch,

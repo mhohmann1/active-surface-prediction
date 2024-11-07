@@ -14,3 +14,17 @@ def save_best_model(avg_test_loss, best_loss, epoch, path, model, optimizer):
                     "loss": best_loss, }, path)
 
         return best_loss
+
+def load_model(path, model, optimizer, eval=True):
+    checkpoint = torch.load(path, weights_only=True)
+    model.load_state_dict(checkpoint["model_state_dict"])
+    optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
+    epoch = checkpoint["epoch"]
+    loss = checkpoint["loss"]
+    print("loaded at epoch: ", epoch, " and mse loss: ", loss)
+
+    if eval:
+        model.eval()
+        return model
+    else:
+        return model, optimizer

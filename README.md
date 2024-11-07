@@ -27,3 +27,4 @@ To recalculate the summary statistics for the training data after changing the i
 ```
 python eval.py
 ```
+Please be aware, that the model paths need to be changed after a changed initial seed. 

@@ -37,7 +37,7 @@ def save_plot(path, train_history, test_history):
     plt.ylabel("Loss")
     plt.legend()
     plt.savefig(path)
-
+    plt.close()
 
 def save_pressure_surface_plot(path, pressure_die, pressure_punch, surface_die):
     vmin = min(pressure_die.min(), pressure_punch.min())
@@ -71,6 +71,7 @@ def save_pressure_surface_plot(path, pressure_die, pressure_punch, surface_die):
 
     plt.tight_layout()
     plt.savefig(path)
+    plt.close()
 
 def save_comparison_plot(path, true, pred):
     plt.figure(figsize=(20, 5))
@@ -102,3 +103,4 @@ def save_comparison_plot(path, true, pred):
 
     plt.tight_layout()
     plt.savefig(path)
+    plt.close()

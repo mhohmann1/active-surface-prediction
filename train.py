@@ -1,7 +1,7 @@
 import torch
 import numpy as np
 from torch.utils.data import random_split, DataLoader
-from tqdm.notebook import tqdm
+from tqdm import tqdm
 import matplotlib.pyplot as plt
 from utils.dataloader import Data
 from args import args

@@ -1,4 +1,6 @@
 import torch
+import matplotlib.pyplot as plt
+import numpy as np
 
 def save_best_model(avg_test_loss, best_loss, epoch, path, model, optimizer):
     if avg_test_loss < best_loss:
@@ -28,3 +30,12 @@ def load_model(path, model, optimizer, eval=True):
         return model
     else:
         return model, optimizer
+
+def save_plot(path, train_history, test_history):
+    plt.figure(figsize=(20, 10))
+    plt.plot(np.array(train_history), label="Train")
+    plt.plot(np.array(test_history), label="Test")
+    plt.xlabel("Epoch")
+    plt.ylabel("Loss")
+    plt.legend()
+    plt.savefig(path)

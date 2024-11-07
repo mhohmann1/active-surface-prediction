@@ -1,4 +1,5 @@
 import torch
+import os
 import numpy as np
 from torch.utils.data import random_split, DataLoader
 from tqdm import tqdm
@@ -35,6 +36,11 @@ print("Samples in Testingset:", len(test_loader.dataset))
 
 exp_id = np.random.randint(1, 10_000)
 print("ID: ", exp_id)
+
+try:
+    os.mkdir(f"saved_models/{exp_id}/")
+except FileExistsError:
+    pass
 
 if args.model == "pix2pix":
     G = Generator(input_dim=2, num_filter=64, output_dim=1).to(device)

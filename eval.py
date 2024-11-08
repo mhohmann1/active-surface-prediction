@@ -116,5 +116,5 @@ with torch.no_grad():
     print(f"MAE: {mae_loss:.5f}")
 
 if args.inject_noise > 0.0:
-    ps_path = f"output/noise_{args.inject_noise}_pressure_surface.png"
+    ps_path = f"output/noise_{int(args.inject_noise*100)}_pressure_surface.png"
     save_pressure_surface_plot(ps_path, transforms(pressure_die), transforms(pressure_punch), surface_die)
